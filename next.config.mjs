@@ -5,6 +5,10 @@ const withNextra = nextra({
 });
 
 export default withNextra({
+	output: 'export',
+	images: {
+		unoptimized: true,
+	},
 	reactStrictMode: true,
 	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 });
