@@ -1,0 +1,6 @@
+{
+  "/01_daily/print_daily/page": "app/01_daily/print_daily/page.js",
+  "/02_weekly/order_supplies/page": "app/02_weekly/order_supplies/page.js",
+  "/99_system_specs/page": "app/99_system_specs/page.js",
+  "/_not-found/page": "app/_not-found/page.js"
+}
