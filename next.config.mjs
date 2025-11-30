@@ -9,6 +9,5 @@ export default withNextra({
 	images: {
 		unoptimized: true,
 	},
-	reactStrictMode: true,
 	pageExtensions: ['js', 'jsx', 'md', 'mdx', 'ts', 'tsx'],
 });
