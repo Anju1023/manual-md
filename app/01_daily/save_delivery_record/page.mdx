@@ -1,0 +1,104 @@
+import { Callout, Steps } from 'nextra/components';
+
+# 💾 翌日納品分の記録保存
+
+明日の納品データを確定させ、記録用の PDF ファイルを保存します。
+日替わり表の印刷が終わった後に実施してください。
+
+## 📂 対象ファイル
+
+<Callout type="info" emoji="📄">
+	**T納品データ.xlsm** 
+    
+    
+    * **場所:** `デスクトップ` > `よく使う` > `伝票作成`フォルダ内
+
+</Callout>
+
+## 📋 手順
+
+<Steps>
+### ファイルを開く
+`T納品データ.xlsm` をダブルクリックして開きます。
+「ホーム」シートが表示されていることを確認してください。
+
+### 集計を実行
+
+メニューにある **「集計」** ボタンを押します。
+最新のデータが読み込まれ、全店舗分の納品数が計算されます。
+
+<Callout type="success" emoji="✅">
+	**完了サイン:** 「集計完了！」というメッセージボックスが出たらOKです。
+</Callout>
+
+### PDF を作成・保存
+
+**「納品記録 PDF」** ボタンを押します。
+処理中は「集計中...」「書き込み中...」という進捗バーが表示されます。
+
+<Callout type="warning" emoji="⏳">
+	**触らないで！**
+	PDF作成中は画面がチカチカ動きますが、**「書き込み&保存完了！」**
+	と出るまでマウスやキーボードに触らずに待ってください。
+</Callout>
+
+### 保存結果の確認
+
+以下の場所に、PDF ファイルが正しく保存されているか確認します。
+
+- **保存場所:** `デスクトップ` > `よく使う` > `伝票作成` > `納品記録` > `納品記録PDF`
+- **フォルダ:** 今月のフォルダ (`yyyy-mm`) > 今日の日付フォルダ (`yyyy-mm-dd`)
+- **ファイル名:** `yyyy-mm-dd_店舗名.pdf`
+
+</Steps>
+
+---
+
+## 🔧 管理者向け情報 (System Specs)
+
+### 📂 保存先フォルダの自動生成ロジック
+
+PDF 保存時、フォルダが存在しない場合は自動的に作成 (`MkDir`) されます。
+
+- **Base:** `OneDrive\Desktop\よく使う\伝票作成\納品記録\納品記録PDF\`
+- **Sub:** `yyyy-mm\` (月別)
+- **Sub:** `yyyy-mm-dd\` (日別)
+
+### 💰 単価参照ロジック (GetPriceByCompany)
+
+商品単価はマスタの単純参照ではなく、**「価格履歴テーブル」** から納品日時点での有効単価を取得しています。
+
+- 過去の納品データを再出力しても、当時の価格で出力される仕様です。
+
+### 💻 ソースコード (VBA)
+
+```vb
+Sub 集計()
+    ' (中略) Scripting.Dictionaryを使用して、
+    ' 日付・店舗・商品IDをキーに数量を集約しています。
+    ' 結果は「全店舗集計」シートに出力されます。
+End Sub
+
+Public Sub 納品記録PDF()
+    ' (中略)
+    ' 1. 店舗ごとに新規ブックを作成 (Template)
+    ' 2. 納品データを流し込み
+    ' 3. PDFとしてエクスポート
+    ' 4. 一時ブックを削除
+
+    ' ▼ 保存先パスの生成部分
+    Dim baseFolder As String
+    baseFolder = Environ("OneDrive") & "\Desktop\よく使う\伝票作成\納品記録\納品記録PDF\"
+
+    Dim yyyymm As String: yyyymm = Format(nDay, "yyyy-mm")
+    Dim yyyymmdd As String: yyyymmdd = Format(nDay, "yyyy-mm-dd")
+
+    ' フォルダ自動作成
+    If Dir(monthFolder, vbDirectory) = "" Then MkDir monthFolder
+    If Dir(folderPath, vbDirectory) = "" Then MkDir folderPath
+
+    ' PDF出力
+    wsOut.ExportAsFixedFormat Type:=xlTypePDF, _
+        Filename:=folderPath & Format(nDay, "yyyy-mm-dd") & "_" & storeName & ".pdf"
+End Sub
+```
