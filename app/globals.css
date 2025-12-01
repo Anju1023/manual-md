@@ -1,0 +1,45 @@
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap');
+
+/* 🌍 全体のフォントを「丸ゴシック」にする */
+body {
+	font-family: 'M PLUS Rounded 1c', sans-serif !important;
+}
+
+/* 🎨 テーマカラーを「焼きたてパン色（オレンジブラウン）」に変更 */
+:root {
+	/* Nextraのプライマリーカラー (色相, 彩度, 輝度) */
+	/* ここを変えると全体のリンク色などが変わるよ！ */
+	--nextra-primary-hue: 25deg; /* オレンジ系 */
+	--nextra-primary-saturation: 90%;
+	--nextra-primary-lightness: 50%;
+}
+
+/* 🍞 サイドバーやコンテンツの背景を少し「生成り色（クリーム）」に */
+/* (ダークモードの時は黒のままにするためのメディアクエリ) */
+@media (prefers-color-scheme: light) {
+	html,
+	body {
+		background-color: #fdfbf7 !important; /* バニラっぽい色 */
+	}
+
+	/* サイドバーの背景も合わせる */
+	.nextra-sidebar-container {
+		background-color: #fdfbf7 !important;
+	}
+}
+
+/* 🥪 カードやボタンを「角丸」にして柔らかく */
+.nextra-card,
+button,
+input {
+	border-radius: 12px !important;
+}
+
+/* 📖 見出しのデザインを可愛く */
+h1 {
+	color: #8b5a2b; /* こげ茶色 */
+}
+
+h2 {
+	border-bottom-color: #e6ccb2 !important; /* 下線をカフェオレ色に */
+}

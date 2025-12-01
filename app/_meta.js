@@ -1,8 +1,7 @@
 export default {
-	index: 'ホーム',
-	'01_daily': '01_毎日の作業 (Daily)',
-	'02_weekly': '02_週2回の作業 (Weekly)',
-	'03_monthly': '03_月末の作業 (Monthly)',
-	'04_ad_hoc': '04_随時・メンテ (Ad-hoc)',
-	'99_system_specs': '99_システム仕様書 (Admin)',
+	'01_daily': '01. 毎日の業務',
+	'02_weekly': '02. 毎週の業務',
+	'03_monthly': '03. 月末・月初の業務',
+	'04_ad_hoc': '04. マスタ登録・変更',
+	'99_system_specs': '99. 管理者向け情報',
 };
