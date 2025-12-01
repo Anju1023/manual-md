@@ -1,5 +1,6 @@
-import './globals.css';
 import 'nextra-theme-docs/style.css';
+import './globals.css';
+
 import { Head } from 'nextra/components';
 import { getPageMap } from 'nextra/page-map';
 import { Layout, Navbar, Footer } from 'nextra-theme-docs';

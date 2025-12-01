@@ -1,45 +1,259 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
 
-/* 🌍 全体のフォントを「丸ゴシック」にする */
+/* =========================================
+   🎨 テーマカラーパレット
+   ========================================= */
+:root {
+	--color-coffee: #4e342e; /* 濃い茶色 */
+	--color-milk: #ffffff;
+	--color-cream: #faf9f6;
+	--color-caramel: #a16e4b; /* 落ち着いた茶色 */
+	--color-toast: #d97d54; /* アクセント */
+	--color-latte: #e0dcd9; /* 薄いグレー */
+
+	/* Nextra設定 */
+	--nextra-primary-hue: 30deg !important;
+	--nextra-primary-saturation: 60% !important;
+	--nextra-primary-lightness: 55% !important;
+
+	/* コードブロック */
+	--shiki-color-text: #4e342e !important;
+	--shiki-color-background: #f5f2f0 !important;
+}
+
+/* =========================================
+   🌍 ベース設定
+   ========================================= */
+html,
 body {
 	font-family: 'M PLUS Rounded 1c', sans-serif !important;
+	color: var(--color-coffee) !important;
+	background-color: var(--color-cream) !important;
+	line-height: 2 !important;
+	letter-spacing: 0.04em;
 }
 
-/* 🎨 テーマカラーを「焼きたてパン色（オレンジブラウン）」に変更 */
-:root {
-	/* Nextraのプライマリーカラー (色相, 彩度, 輝度) */
-	/* ここを変えると全体のリンク色などが変わるよ！ */
-	--nextra-primary-hue: 25deg; /* オレンジ系 */
-	--nextra-primary-saturation: 90%;
-	--nextra-primary-lightness: 50%;
+/* 🔗 テキストリンク (カード以外) */
+/* aタグ全体ではなく、文章中のリンクだけを狙う */
+p > a,
+li > a:not(.nextra-sidebar-item) {
+	color: var(--color-caramel) !important;
+	text-decoration: none;
+	border-bottom: 1px dotted var(--color-caramel);
+	transition: background-color 0.2s ease;
 }
 
-/* 🍞 サイドバーやコンテンツの背景を少し「生成り色（クリーム）」に */
-/* (ダークモードの時は黒のままにするためのメディアクエリ) */
-@media (prefers-color-scheme: light) {
-	html,
-	body {
-		background-color: #fdfbf7 !important; /* バニラっぽい色 */
-	}
-
-	/* サイドバーの背景も合わせる */
-	.nextra-sidebar-container {
-		background-color: #fdfbf7 !important;
-	}
+/* ホバー時の挙動を修正（形を変えない！） */
+p > a:hover,
+li > a:not(.nextra-sidebar-item):hover {
+	background-color: #ffcc80; /* 背景色だけつける */
+	color: #fff !important;
+	border-radius: 4px;
+	text-decoration: none;
+	/* paddingやmarginをいじらないことでガタつき防止！ */
 }
 
-/* 🥪 カードやボタンを「角丸」にして柔らかく */
-.nextra-card,
-button,
-input {
+/* =========================================
+   🍞 サイドバー (うっとうしさ解消！)
+   ========================================= */
+.nextra-sidebar-container {
+	background-color: #fffcf7 !important;
+	border-right: 1px dashed var(--color-latte) !important;
+}
+
+/* サイドバーのリンク */
+.nextra-sidebar-container a {
+	transition: background-color 0.1s ease, color 0.1s ease !important;
+	/* 🚫 ここ重要！変形（transform）を禁止！ */
+	transform: none !important;
+}
+
+/* サイドバーのホバー */
+.nextra-sidebar-container a:hover {
+	/* 背景を薄いカフェオレ色にするだけ */
+	background-color: #efebe9 !important;
+	color: #3e2723 !important; /* 文字を少し濃く */
+	/* 形は絶対に変えない！ */
+	border-radius: 8px !important;
+}
+
+/* アクティブなページ（今見てるページ） */
+.nextra-sidebar-container a[data-active='true'] {
+	background-color: #ffe0b2 !important; /* オレンジ背景 */
+	color: #3e2723 !important;
+	font-weight: 700 !important;
+}
+
+/* =========================================
+   🥪 カードリンク (見やすさ重視！)
+   ========================================= */
+/* Nextraのカードは aタグ なので、個別に指定して上書きする */
+a.nextra-card {
+	background: #ffffff !important;
+	border: 1px solid var(--color-latte) !important;
+	border-radius: 12px !important;
+	padding: 1.5rem !important;
+	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02) !important;
+	transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+
+	/* 文字色をリセット（リンク色にしない） */
+	color: var(--color-coffee) !important;
+	text-decoration: none !important;
+	border-bottom: none !important;
+}
+
+/* カードホバー時 */
+a.nextra-card:hover {
+	/* 🚫 背景を濃くしない！薄いバター色にする */
+	background-color: #fffbf0 !important;
+
+	/* 枠線をくっきりさせる */
+	border-color: var(--color-toast) !important;
+
+	/* 影を落として浮かせる */
+	box-shadow: 0 8px 15px rgba(161, 110, 75, 0.15) !important;
+	transform: translateY(-3px) !important;
+
+	/* 文字色は「茶色」のまま！白くしない！ */
+	color: var(--color-coffee) !important;
+}
+
+/* カード内のタイトル */
+a.nextra-card h3 {
+	color: #8d6e63 !important;
+	font-weight: 700 !important;
+}
+/* ホバーした時のタイトル色 */
+a.nextra-card:hover h3 {
+	color: #d84315 !important; /* 濃いオレンジに変化 */
+}
+
+/* =========================================
+   💡 コールアウト (水色撲滅版・継続)
+   ========================================= */
+.nextra-callout {
+	border-radius: 10px !important;
+	border: 1px solid transparent !important;
+	padding: 1.5rem !important;
+	margin: 2rem 0 !important;
+	box-shadow: 2px 2px 0px rgba(93, 64, 55, 0.05) !important;
+	color: var(--color-coffee) !important;
+	--tw-text-opacity: 1 !important;
+}
+
+/* アイコン色 */
+.nextra-callout svg {
+	color: #6d4c41 !important;
+	fill: currentColor !important;
+}
+
+/* 色分け設定 (前回と同じ) */
+.nextra-callout[class*='bg-blue-'],
+.nextra-callout[class*='text-blue-'] {
+	background-color: #f0ebe5 !important;
+	border-color: #d7ccc8 !important; /* Info: Beige */
+}
+.nextra-callout[class*='bg-yellow-'],
+.nextra-callout[class*='text-yellow-'] {
+	background-color: #fff9c4 !important;
+	border-color: #ffe082 !important; /* Warn: Yellow */
+}
+.nextra-callout[class*='bg-red-'],
+.nextra-callout[class*='text-red-'] {
+	background-color: #fce4ec !important;
+	border-color: #f48fb1 !important; /* Error: Pink */
+}
+.nextra-callout[class*='bg-green-'],
+.nextra-callout[class*='text-green-'] {
+	background-color: #f1f8e9 !important;
+	border-color: #c5e1a5 !important; /* Success: Green */
+}
+
+/* 中の文字色強制 */
+.nextra-callout p,
+.nextra-callout div,
+.nextra-callout span {
+	color: #4e342e !important;
+}
+
+/* =========================================
+   📋 テーブル (前回と同じ・変更なし)
+   ========================================= */
+table {
+	width: 100% !important;
+	display: table !important;
+	table-layout: auto !important;
+	border-collapse: separate !important;
+	border-spacing: 0;
+	margin: 2rem 0;
+	border: 1px solid var(--color-latte) !important;
+	border-radius: 12px !important;
+	overflow: hidden;
+	background-color: #fff;
+}
+thead tr {
+	background-color: #efebe9 !important;
+}
+thead th {
+	color: #3e2723 !important;
+	font-weight: 700;
+	padding: 12px 15px !important;
+	border-bottom: 2px solid #fff !important;
+	text-align: left;
+	white-space: nowrap !important;
+}
+tbody td {
+	padding: 12px 15px !important;
+	border-bottom: 1px solid #f5f5f5 !important;
+	color: var(--color-coffee);
+	vertical-align: middle !important;
+}
+tbody tr:nth-child(even) td {
+	background-color: #fafafa !important;
+}
+tbody tr:nth-child(odd) td {
+	background-color: #ffffff !important;
+}
+
+/* =========================================
+   📝 その他 (見出し・コードなど)
+   ========================================= */
+h1 {
+	color: #3e2723 !important;
+	border-bottom: none !important;
+}
+h2 {
+	color: #5d4037 !important;
+	border-bottom: 2px dotted var(--color-latte) !important;
+	padding-bottom: 0.5rem !important;
+	margin-top: 3.5rem !important;
+}
+code {
+	font-family: 'Consolas', monospace !important;
+	color: #6d4c41 !important;
+	background-color: #f5f2f0 !important;
+	padding: 3px 6px;
+	border-radius: 6px;
+	border: 1px solid #e0dcd9;
+}
+pre {
+	background-color: #fff !important;
+	border: 1px solid var(--color-latte) !important;
 	border-radius: 12px !important;
 }
-
-/* 📖 見出しのデザインを可愛く */
-h1 {
-	color: #8b5a2b; /* こげ茶色 */
+::-webkit-scrollbar {
+	width: 12px;
 }
-
-h2 {
-	border-bottom-color: #e6ccb2 !important; /* 下線をカフェオレ色に */
+::-webkit-scrollbar-track {
+	background: var(--color-cream);
+}
+::-webkit-scrollbar-thumb {
+	background-color: #d7ccc8;
+	border-radius: 6px;
+	border: 3px solid var(--color-cream);
+}
+.nextra-nav-container {
+	background-color: rgba(255, 252, 247, 0.9) !important;
+	backdrop-filter: blur(8px);
+	border-bottom: 1px dashed var(--color-latte) !important;
 }
