@@ -7,7 +7,7 @@ import { Layout, Navbar, Footer } from 'nextra-theme-docs';
 
 export const metadata = {
 	title: '南部センターベーカリー業務マニュアル',
-	description: '業務マニュアルの決定版',
+	description: '業務マニュアル',
 };
 
 const navbar = (
@@ -26,10 +26,7 @@ export default async function RootLayout({ children }) {
 
 	return (
 		<html lang="ja" dir="ltr" suppressHydrationWarning>
-			{/* ⚠️ ここに <head> は書かない！CSSでフォント読み込んでるから大丈夫！ */}
-
-			{/* bodyには最低限のクラスだけ当てる */}
-			<body className="bg-bakery-bg text-bakery-text font-rounded">
+			<body>
 				<Layout
 					navbar={navbar}
 					pageMap={pageMap}

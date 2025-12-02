@@ -1,246 +1,309 @@
-@import url('https://fonts.googleapis.com/css2?family=M+PLUS+Rounded+1c:wght@400;500;700&display=swap');
+@import 'tailwindcss';
 
 /* =========================================
-   🎨 テーマカラーパレット
+   🎨 テーマ設定
    ========================================= */
-:root {
-	--color-coffee: #4e342e; /* 濃い茶色 */
-	--color-milk: #ffffff;
+@theme {
+	--color-coffee: #4e342e;
 	--color-cream: #faf9f6;
-	--color-caramel: #a16e4b; /* 落ち着いた茶色 */
-	--color-toast: #d97d54; /* アクセント */
-	--color-latte: #e0dcd9; /* 薄いグレー */
+	--color-caramel: #a16e4b;
+	--color-toast: #d97d54;
+	--color-latte: #e0dcd9;
 
-	/* Nextra設定 */
-	--nextra-primary-hue: 30deg !important;
-	--nextra-primary-saturation: 60% !important;
-	--nextra-primary-lightness: 55% !important;
-
-	/* コードブロック */
-	--shiki-color-text: #4e342e !important;
-	--shiki-color-background: #f5f2f0 !important;
+	--nextra-primary-hue: 30deg;
+	--nextra-primary-saturation: 60%;
+	--nextra-primary-lightness: 55%;
 }
 
 /* =========================================
-   🌍 ベース設定
+   🌍 ベーススタイル
    ========================================= */
-html,
-body {
-	font-family: 'M PLUS Rounded 1c', sans-serif !important;
-	color: var(--color-coffee) !important;
-	background-color: var(--color-cream) !important;
-	line-height: 2 !important;
-	letter-spacing: 0.04em;
-}
+@layer base {
+	html,
+	body {
+		font-family: 'M PLUS Rounded 1c', sans-serif !important;
+		color: var(--color-coffee) !important;
+		background-color: var(--color-cream) !important;
+		line-height: 2 !important;
+		letter-spacing: 0.04em !important;
+	}
 
-/* 🔗 テキストリンク (カード以外) */
-/* aタグ全体ではなく、文章中のリンクだけを狙う */
-p > a,
-li > a:not(.nextra-sidebar-item) {
-	color: var(--color-caramel) !important;
-	text-decoration: none;
-	border-bottom: 1px dotted var(--color-caramel);
-	transition: background-color 0.2s ease;
-}
+	/* 見出し */
+	h1 {
+		color: #3e2723 !important;
+		font-size: 2.5rem !important;
+		font-weight: 800 !important;
+		margin-bottom: 2rem !important;
+		border-bottom: none !important;
+	}
 
-/* ホバー時の挙動を修正（形を変えない！） */
-p > a:hover,
-li > a:not(.nextra-sidebar-item):hover {
-	background-color: #ffcc80; /* 背景色だけつける */
-	color: #fff !important;
-	border-radius: 4px;
-	text-decoration: none;
-	/* paddingやmarginをいじらないことでガタつき防止！ */
+	h2 {
+		color: #5d4037 !important;
+		font-size: 1.8rem !important;
+		margin-top: 3.5rem !important;
+		margin-bottom: 1.5rem !important;
+		padding-bottom: 0.5rem !important;
+		border-bottom: 2px dotted var(--color-latte) !important;
+		display: inline-block !important;
+		width: 100% !important;
+	}
+
+	/* Steps以外の h3 */
+	h3:not(:where(.nextra-steps *, .nx-steps *, .steps *)) {
+		color: #6d4c41 !important;
+		font-size: 1.3rem !important;
+		font-weight: 700 !important;
+		margin-top: 2rem !important;
+		margin-bottom: 1rem !important;
+		border-left: 5px solid #ffcc80 !important;
+		padding-left: 10px !important;
+	}
+
+	/* テーブル */
+	table {
+		width: 100% !important;
+		display: table !important;
+		table-layout: auto !important;
+		border-collapse: separate !important;
+		border-spacing: 0 !important;
+		margin: 2rem 0 !important;
+		border: 1px solid var(--color-latte) !important;
+		border-radius: 12px !important;
+		overflow: hidden !important;
+		background-color: #fff !important;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.02) !important;
+	}
+
+	thead tr {
+		background-color: #efebe9 !important;
+	}
+
+	thead th {
+		color: #3e2723 !important;
+		font-weight: 700 !important;
+		padding: 12px 15px !important;
+		border-bottom: 2px solid #fff !important;
+		text-align: left !important;
+		white-space: nowrap !important;
+	}
+
+	tbody td {
+		padding: 12px 15px !important;
+		border-bottom: 1px solid #f5f5f5 !important;
+		color: var(--color-coffee) !important;
+		vertical-align: middle !important;
+	}
+
+	tbody tr:nth-child(even) td {
+		background-color: #fafafa !important;
+	}
 }
 
 /* =========================================
-   🍞 サイドバー (うっとうしさ解消！)
+   🧩 コンポーネントの上書き
    ========================================= */
-.nextra-sidebar-container {
-	background-color: #fffcf7 !important;
-	border-right: 1px dashed var(--color-latte) !important;
-}
+@layer components {
+	/* ---------------------------------------------------
+     🖊️ 本文リンク (ターゲットを厳密に限定！)
+     --------------------------------------------------- */
+	/* mainタグの中の、p, li, td, th 直下のリンクだけを狙う */
+	/* これなら絶対にサイドバーやカードには当たらない */
+	main p > a:not(.nextra-card),
+	main li > a:not(.nextra-card),
+	main td > a:not(.nextra-card) {
+		color: var(--color-caramel) !important;
+		text-decoration: none !important;
+		border-bottom: 1px dotted var(--color-caramel) !important;
+		transition: all 0.2s ease-in-out !important;
+	}
 
-/* サイドバーのリンク */
-.nextra-sidebar-container a {
-	transition: background-color 0.1s ease, color 0.1s ease !important;
-	/* 🚫 ここ重要！変形（transform）を禁止！ */
-	transform: none !important;
-}
+	/* ホバー時：マーカー風 */
+	main p > a:not(.nextra-card):hover,
+	main li > a:not(.nextra-card):hover,
+	main td > a:not(.nextra-card):hover {
+		background-color: var(--color-toast) !important;
+		color: #fff !important;
+		border-radius: 4px !important;
+		border-color: transparent !important;
+		padding: 0 4px !important;
+		margin: 0 -4px !important;
+	}
 
-/* サイドバーのホバー */
-.nextra-sidebar-container a:hover {
-	/* 背景を薄いカフェオレ色にするだけ */
-	background-color: #efebe9 !important;
-	color: #3e2723 !important; /* 文字を少し濃く */
-	/* 形は絶対に変えない！ */
-	border-radius: 8px !important;
-}
+	/* ---------------------------------------------------
+     🍞 サイドバー (ガタつきの元凶を完全制圧)
+     --------------------------------------------------- */
+	/* コンテナ背景 */
+	aside,
+	.nextra-sidebar-container {
+		background-color: #fffcf7 !important;
+		border-right: 1px dashed var(--color-latte) !important;
+	}
 
-/* アクティブなページ（今見てるページ） */
-.nextra-sidebar-container a[data-active='true'] {
-	background-color: #ffe0b2 !important; /* オレンジ背景 */
-	color: #3e2723 !important;
-	font-weight: 700 !important;
+	/* サイドバーリンクの基本設定 */
+	aside a,
+	.nextra-sidebar-container a {
+		transition: background-color 0.1s ease, color 0.1s ease !important;
+		/* 🚫 形を変えるプロパティを全て無効化 */
+		transform: none !important;
+		border: none !important;
+		margin: 0 !important;
+		/* 元々のNextraのpadding (py-1.5 px-2) を維持・固定する！ */
+		/* 1.5 = 0.375rem, 2 = 0.5rem */
+		padding: 0.375rem 0.5rem !important;
+	}
+
+	/* サイドバーホバー時 */
+	aside a:hover,
+	.nextra-sidebar-container a:hover {
+		/* 背景色だけ変える！ */
+		background-color: #efebe9 !important; /* モカベージュ */
+		color: #3e2723 !important; /* 濃い茶色 */
+
+		/* ⚠️ padding/marginは絶対にいじらない！ */
+		border-radius: 6px !important;
+	}
+
+	/* アクティブなページ */
+	aside a[data-active='true'],
+	.nextra-sidebar-container a[data-active='true'] {
+		background-color: #ffe0b2 !important; /* オレンジ */
+		color: #3e2723 !important;
+		font-weight: 700 !important;
+	}
+
+	/* ---------------------------------------------------
+     🥪 カードリンク (形を変えない！)
+     --------------------------------------------------- */
+	a.nextra-card {
+		background-color: #ffffff !important;
+		border: 1px solid var(--color-latte) !important;
+		border-radius: 16px !important;
+		padding: 1.5rem !important; /* padding固定 */
+		box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02) !important;
+		transition: all 0.2s ease !important;
+		color: var(--color-coffee) !important;
+		text-decoration: none !important;
+		border-bottom: none !important;
+		margin: 0 !important; /* margin固定 */
+	}
+
+	a.nextra-card:hover {
+		background-color: #fffbf0 !important;
+		box-shadow: 0 8px 15px rgba(161, 110, 75, 0.15) !important;
+		border-color: var(--color-toast) !important;
+		transform: translateY(-3px) !important;
+		color: var(--color-coffee) !important;
+
+		/* 🛡️ padding/margin をホバー時も再指定して死守！ */
+		padding: 1.5rem !important;
+		margin: 0 !important;
+	}
+
+	a.nextra-card h3 {
+		font-weight: 700 !important;
+		color: #8d6e63 !important;
+	}
+	a.nextra-card:hover h3 {
+		color: #d84315 !important;
+	}
+
+	/* ---------------------------------------------------
+     💡 コールアウト
+     --------------------------------------------------- */
+	.nextra-callout {
+		border-radius: 10px !important;
+		border: 1px solid transparent !important;
+		padding: 1.5rem !important;
+		margin: 2rem 0 !important;
+		box-shadow: 2px 2px 0px rgba(93, 64, 55, 0.05) !important;
+		color: var(--color-coffee) !important;
+		--tw-text-opacity: 1 !important;
+	}
+
+	.nextra-callout svg {
+		color: #6d4c41 !important;
+		fill: currentColor !important;
+	}
+
+	/* 色指定 */
+	.nextra-callout[class*='bg-blue-'],
+	.nextra-callout[class*='text-blue-'] {
+		background-color: #f0ebe5 !important;
+		border-color: #d7ccc8 !important;
+	}
+	.nextra-callout[class*='bg-yellow-'],
+	.nextra-callout[class*='text-yellow-'] {
+		background-color: #fff9c4 !important;
+		border-color: #ffe082 !important;
+	}
+	.nextra-callout[class*='bg-red-'],
+	.nextra-callout[class*='text-red-'] {
+		background-color: #fce4ec !important;
+		border-color: #f48fb1 !important;
+	}
+	.nextra-callout[class*='bg-green-'],
+	.nextra-callout[class*='text-green-'] {
+		background-color: #f1f8e9 !important;
+		border-color: #c5e1a5 !important;
+	}
+
+	.nextra-callout p,
+	.nextra-callout div,
+	.nextra-callout span {
+		color: #4e342e !important;
+	}
+
+	/* ---------------------------------------------------
+     👣 Steps (ステップ)
+     --------------------------------------------------- */
+	.nextra-steps h3,
+	.nx-steps h3,
+	.steps h3 {
+		border-left: none !important;
+		padding-left: 0 !important;
+		margin-top: 0 !important;
+		background-color: transparent !important;
+		color: #6d4c41 !important;
+		font-weight: 700 !important;
+	}
+
+	.nextra-steps h3::before,
+	.nx-steps h3::before,
+	.steps h3::before {
+		background-color: #8d6e63 !important;
+		color: #ffffff !important;
+		display: inline-flex !important;
+		align-items: center !important;
+		justify-content: center !important;
+		width: 32px !important;
+		height: 32px !important;
+		border-radius: 50% !important;
+		font-family: 'Consolas', monospace !important;
+		font-size: 16px !important;
+		font-weight: bold !important;
+		line-height: 1 !important;
+		margin-right: 12px !important;
+		border: 3px solid #fff !important;
+		box-shadow: 0 2px 5px rgba(0, 0, 0, 0.15) !important;
+	}
+
+	.nextra-steps,
+	.nx-steps,
+	.steps {
+		border-left-color: #d7ccc8 !important;
+	}
+
+	/* ナビバー保護 */
+	.nextra-nav-container {
+		background-color: rgba(255, 252, 247, 0.9) !important;
+		backdrop-filter: blur(8px) !important;
+		border-bottom: 1px dashed var(--color-latte) !important;
+	}
 }
 
 /* =========================================
-   🥪 カードリンク (見やすさ重視！)
+   📝 その他
    ========================================= */
-/* Nextraのカードは aタグ なので、個別に指定して上書きする */
-a.nextra-card {
-	background: #ffffff !important;
-	border: 1px solid var(--color-latte) !important;
-	border-radius: 12px !important;
-	padding: 1.5rem !important;
-	box-shadow: 0 4px 6px rgba(0, 0, 0, 0.02) !important;
-	transition: transform 0.2s ease, box-shadow 0.2s ease !important;
-
-	/* 文字色をリセット（リンク色にしない） */
-	color: var(--color-coffee) !important;
-	text-decoration: none !important;
-	border-bottom: none !important;
-}
-
-/* カードホバー時 */
-a.nextra-card:hover {
-	/* 🚫 背景を濃くしない！薄いバター色にする */
-	background-color: #fffbf0 !important;
-
-	/* 枠線をくっきりさせる */
-	border-color: var(--color-toast) !important;
-
-	/* 影を落として浮かせる */
-	box-shadow: 0 8px 15px rgba(161, 110, 75, 0.15) !important;
-	transform: translateY(-3px) !important;
-
-	/* 文字色は「茶色」のまま！白くしない！ */
-	color: var(--color-coffee) !important;
-}
-
-/* カード内のタイトル */
-a.nextra-card h3 {
-	color: #8d6e63 !important;
-	font-weight: 700 !important;
-}
-/* ホバーした時のタイトル色 */
-a.nextra-card:hover h3 {
-	color: #d84315 !important; /* 濃いオレンジに変化 */
-}
-
-/* =========================================
-   💡 コールアウト (水色撲滅版・継続)
-   ========================================= */
-.nextra-callout {
-	border-radius: 10px !important;
-	border: 1px solid transparent !important;
-	padding: 1.5rem !important;
-	margin: 2rem 0 !important;
-	box-shadow: 2px 2px 0px rgba(93, 64, 55, 0.05) !important;
-	color: var(--color-coffee) !important;
-	--tw-text-opacity: 1 !important;
-}
-
-/* アイコン色 */
-.nextra-callout svg {
-	color: #6d4c41 !important;
-	fill: currentColor !important;
-}
-
-/* 色分け設定 (前回と同じ) */
-.nextra-callout[class*='bg-blue-'],
-.nextra-callout[class*='text-blue-'] {
-	background-color: #f0ebe5 !important;
-	border-color: #d7ccc8 !important; /* Info: Beige */
-}
-.nextra-callout[class*='bg-yellow-'],
-.nextra-callout[class*='text-yellow-'] {
-	background-color: #fff9c4 !important;
-	border-color: #ffe082 !important; /* Warn: Yellow */
-}
-.nextra-callout[class*='bg-red-'],
-.nextra-callout[class*='text-red-'] {
-	background-color: #fce4ec !important;
-	border-color: #f48fb1 !important; /* Error: Pink */
-}
-.nextra-callout[class*='bg-green-'],
-.nextra-callout[class*='text-green-'] {
-	background-color: #f1f8e9 !important;
-	border-color: #c5e1a5 !important; /* Success: Green */
-}
-
-/* 中の文字色強制 */
-.nextra-callout p,
-.nextra-callout div,
-.nextra-callout span {
-	color: #4e342e !important;
-}
-
-/* =========================================
-   📋 テーブル (前回と同じ・変更なし)
-   ========================================= */
-table {
-	width: 100% !important;
-	display: table !important;
-	table-layout: auto !important;
-	border-collapse: separate !important;
-	border-spacing: 0;
-	margin: 2rem 0;
-	border: 1px solid var(--color-latte) !important;
-	border-radius: 12px !important;
-	overflow: hidden;
-	background-color: #fff;
-}
-thead tr {
-	background-color: #efebe9 !important;
-}
-thead th {
-	color: #3e2723 !important;
-	font-weight: 700;
-	padding: 12px 15px !important;
-	border-bottom: 2px solid #fff !important;
-	text-align: left;
-	white-space: nowrap !important;
-}
-tbody td {
-	padding: 12px 15px !important;
-	border-bottom: 1px solid #f5f5f5 !important;
-	color: var(--color-coffee);
-	vertical-align: middle !important;
-}
-tbody tr:nth-child(even) td {
-	background-color: #fafafa !important;
-}
-tbody tr:nth-child(odd) td {
-	background-color: #ffffff !important;
-}
-
-/* =========================================
-   📝 その他 (見出し・コードなど)
-   ========================================= */
-h1 {
-	color: #3e2723 !important;
-	border-bottom: none !important;
-}
-h2 {
-	color: #5d4037 !important;
-	border-bottom: 2px dotted var(--color-latte) !important;
-	padding-bottom: 0.5rem !important;
-	margin-top: 3.5rem !important;
-}
-code {
-	font-family: 'Consolas', monospace !important;
-	color: #6d4c41 !important;
-	background-color: #f5f2f0 !important;
-	padding: 3px 6px;
-	border-radius: 6px;
-	border: 1px solid #e0dcd9;
-}
-pre {
-	background-color: #fff !important;
-	border: 1px solid var(--color-latte) !important;
-	border-radius: 12px !important;
-}
 ::-webkit-scrollbar {
 	width: 12px;
 }
@@ -252,8 +315,18 @@ pre {
 	border-radius: 6px;
 	border: 3px solid var(--color-cream);
 }
-.nextra-nav-container {
-	background-color: rgba(255, 252, 247, 0.9) !important;
-	backdrop-filter: blur(8px);
-	border-bottom: 1px dashed var(--color-latte) !important;
+
+code {
+	font-family: 'Consolas', monospace !important;
+	color: #6d4c41 !important;
+	background-color: #f5f2f0 !important;
+	padding: 3px 6px !important;
+	border-radius: 4px !important;
+	border: 1px solid #e0dcd9 !important;
+}
+
+pre {
+	background-color: #fff !important;
+	border: 1px solid var(--color-latte) !important;
+	border-radius: 12px !important;
 }
