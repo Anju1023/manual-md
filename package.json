@@ -9,6 +9,7 @@
 		"start": "next start"
 	},
 	"dependencies": {
+		"@tailwindcss/postcss": "^4.1.17",
 		"next": "^16.0.5",
 		"nextra": "^4.6.0",
 		"nextra-theme-docs": "^4.6.0",
@@ -17,6 +18,10 @@
 	},
 	"license": "ISC",
 	"devDependencies": {
-		"pagefind": "^1.4.0"
+		"autoprefixer": "^10.4.22",
+		"baseline-browser-mapping": "^2.8.32",
+		"pagefind": "^1.4.0",
+		"postcss": "^8.5.6",
+		"tailwindcss": "^4.1.17"
 	}
 }

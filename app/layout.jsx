@@ -1,7 +1,7 @@
+/* app/layout.jsx */
 import 'nextra-theme-docs/style.css';
 import './globals.css';
 
-import { Head } from 'nextra/components';
 import { getPageMap } from 'nextra/page-map';
 import { Layout, Navbar, Footer } from 'nextra-theme-docs';
 
@@ -22,13 +22,14 @@ const footer = (
 );
 
 export default async function RootLayout({ children }) {
-	// ページ構造のデータを取得
 	const pageMap = await getPageMap();
 
 	return (
 		<html lang="ja" dir="ltr" suppressHydrationWarning>
-			<Head />
-			<body>
+			{/* ⚠️ ここに <head> は書かない！CSSでフォント読み込んでるから大丈夫！ */}
+
+			{/* bodyには最低限のクラスだけ当てる */}
+			<body className="bg-bakery-bg text-bakery-text font-rounded">
 				<Layout
 					navbar={navbar}
 					pageMap={pageMap}

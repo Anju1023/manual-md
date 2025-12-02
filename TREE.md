@@ -1,3 +1,4 @@
+
 ```
 manual-md
 ├─ app
@@ -51,6 +52,7 @@ manual-md
 │  │  ├─ vba_common
 │  │  │  └─ page.mdx
 │  │  └─ _meta.js
+│  ├─ globals.css
 │  ├─ layout.jsx
 │  ├─ page.mdx
 │  └─ _meta.js
@@ -59,6 +61,7 @@ manual-md
 ├─ next.config.mjs
 ├─ package-lock.json
 ├─ package.json
+├─ postcss.config.js
 ├─ public
 │  └─ images
 │     └─ print_capture.png
