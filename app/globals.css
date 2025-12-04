@@ -8,7 +8,7 @@
 	--color-cream: #faf9f6;
 	--color-caramel: #a16e4b;
 	--color-toast: #d97d54;
-	--color-latte: #e0dcd9;
+	--color-latte: #efddd0;
 
 	--nextra-primary-hue: 30deg;
 	--nextra-primary-saturation: 60%;
@@ -22,15 +22,20 @@
 	html,
 	body {
 		font-family: 'M PLUS Rounded 1c', sans-serif !important;
-		color: var(--color-coffee) !important;
-		background-color: var(--color-cream) !important;
+		color: var(--color-coffee);
+		/* background-color: var(--color-cream) !important; */
 		line-height: 2 !important;
 		letter-spacing: 0.04em !important;
 	}
 
+	.dark html,
+	.dark body {
+		color: var(--color-cream);
+	}
+
 	/* 見出し */
 	h1 {
-		color: #3e2723 !important;
+		color: #3e2723;
 		font-size: 2.5rem !important;
 		font-weight: 800 !important;
 		margin-bottom: 2rem !important;
@@ -57,6 +62,20 @@
 		margin-bottom: 1rem !important;
 		border-left: 5px solid #ffcc80 !important;
 		padding-left: 10px !important;
+	}
+
+	.dark h1,
+	.dark h2,
+	.dark h3 {
+		color: var(--color-cream);
+	}
+
+	p {
+		color: var(--color-caramel);
+	}
+
+	.dark p {
+		color: var(--color-latte);
 	}
 
 	/* テーブル */
@@ -117,6 +136,12 @@
 		transition: all 0.2s ease-in-out !important;
 	}
 
+	.dark main p > a:not(.nextra-card),
+	.dark main li > a:not(.nextra-card),
+	.dark main td > a:not(.nextra-card) {
+		color: var(--color-cream);
+	}
+
 	/* ホバー時：マーカー風 */
 	main p > a:not(.nextra-card):hover,
 	main li > a:not(.nextra-card):hover,
@@ -135,7 +160,7 @@
 	/* コンテナ背景 */
 	aside,
 	.nextra-sidebar-container {
-		background-color: #fffcf7 !important;
+		/* background-color: #fffcf7 !important; */
 		border-right: 1px dashed var(--color-latte) !important;
 	}
 
