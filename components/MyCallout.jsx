@@ -28,15 +28,9 @@ const classes = {
 	),
 	// ✨ ここがポイント‼️ ✨
 	info: cn(
-		// ☀️ ライトモード（普通の時）
-		'bg-orange-50!', // 背景：うすーいベージュ
-		'text-orange-800!', // 文字：こげ茶色
-		'border-orange-200!', // 枠線：ちょっと濃いベージュ
-
-		// 🌙 ダークモード（暗い時）← ここをいじるよ！
-		'dark:bg-orange-900/30!', // 背景：暗いオレンジ（茶色）を透けさせる
-		'dark:text-orange-200!', // 文字：読みやすい薄いベージュ
-		'dark:border-orange-800!' // 枠線：暗めの茶色
+		'bg-orange-50 dark:bg-orange-900/30',
+		'text-orange-800 dark:text-amber-50',
+		'border-orange-200 dark:border-orange-800'
 	),
 	warning: cn(
 		'bg-yellow-50 dark:bg-yellow-700/30',
@@ -60,7 +54,7 @@ export const MyCallout = ({
 	return (
 		<div
 			className={cn(
-				'nextra-callout overflow-x-auto mt-6 flex rounded-lg border py-2 pe-4',
+				'my-callout overflow-x-auto mt-6 flex rounded-lg border py-2 pe-4',
 				'contrast-more:border-current',
 				type && classes[type],
 				className

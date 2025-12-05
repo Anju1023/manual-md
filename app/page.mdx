@@ -1,5 +1,7 @@
 import { Cards, Callout } from 'nextra/components';
 import { MyCallout } from '../components/MyCallout';
+import { MyTable } from '../components/MyTable';
+import { MySteps, MyStep } from '../components/MySteps';
 
 # 南部センター ベーカリー業務マニュアル
 
@@ -84,3 +86,23 @@ import { MyCallout } from '../components/MyCallout';
     になってるかな
 
 </MyCallout>
+
+<MyTable
+	headers={['名前', '年齢', '職業']}
+	rows={[
+		['太郎', '25', 'エンジニア'],
+		['花子', '23', 'デザイナー'],
+	]}
+/>
+
+<MySteps>
+	<MyStep number={1} title="準備する">
+		まずは材料を準備しましょう
+	</MyStep>
+	<MyStep number={2} title="混ぜる">
+		よく混ぜます
+	</MyStep>
+	<MyStep number={3} title="焼く">
+		オーブンで焼きます
+	</MyStep>
+</MySteps>
